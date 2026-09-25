@@ -73,6 +73,19 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #98989d;
         }
+
+        /* Order Modal */
+        #orderModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        #orderModal.hidden { display: none; }
     </style>
 </head>
 <body class="font-sans text-apple-dark bg-white antialiased selection:bg-apple-dark selection:text-white">
@@ -195,8 +208,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Kala Monolith Hoodie</h3>
                         <p class="text-xs text-black/50 mb-3">450 GSM Heavy Terry</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$140</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹1699</span>
+                            <button onclick="openOrder('Kala Monolith Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -210,8 +223,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Embroidered Lotus Tee</h3>
                         <p class="text-xs text-black/50 mb-3">Raw White Silk Thread</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$85</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Embroidered Lotus Tee', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -225,8 +238,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Architectural Polo</h3>
                         <p class="text-xs text-black/50 mb-3">Structured Piqué Knit</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$110</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹999</span>
+                            <button onclick="openOrder('Architectural Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -240,8 +253,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Sanskrit Glyph Hoodie</h3>
                         <p class="text-xs text-black/50 mb-3">Puff Print Detail</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$150</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹1699</span>
+                            <button onclick="openOrder('Sanskrit Glyph Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -255,8 +268,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Heritage Crest Polo</h3>
                         <p class="text-xs text-black/50 mb-3">Hand-embroidered collar</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$125</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹999</span>
+                            <button onclick="openOrder('Heritage Crest Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -270,8 +283,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Minimalist Motif Tee</h3>
                         <p class="text-xs text-black/50 mb-3">Supima Cotton Blend</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$70</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹799</span>
+                            <button onclick="openOrder('Minimalist Motif Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -285,8 +298,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Zenith Oversized Hoodie</h3>
                         <p class="text-xs text-black/50 mb-3">Double-lined hood</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$160</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹1699</span>
+                            <button onclick="openOrder('Zenith Oversized Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -300,8 +313,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Artisan Thread Polo</h3>
                         <p class="text-xs text-black/50 mb-3">Hidden Placket</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$115</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹999</span>
+                            <button onclick="openOrder('Artisan Thread Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -315,8 +328,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Culture Essential Tee</h3>
                         <p class="text-xs text-black/50 mb-3">280 GSM Heavy Jersey</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$65</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹799</span>
+                            <button onclick="openOrder('Culture Essential Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -330,8 +343,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Shadow Embroidered Hoodie</h3>
                         <p class="text-xs text-black/50 mb-3">Tonal Stitching</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$155</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Shadow Embroidered Hoodie', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -362,8 +375,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Mandala Back-Embroidered Tee</h3>
                         <p class="text-xs text-black/50 mb-3">Gold Silk Threadwork</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$120</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Mandala Back-Embroidered Tee', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -377,8 +390,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Kala Sigil Heavy Hoodie</h3>
                         <p class="text-xs text-black/50 mb-3">Raised Micro Stitching</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$175</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Kala Sigil Heavy Hoodie', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -392,8 +405,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Artisan Collar Polo</h3>
                         <p class="text-xs text-black/50 mb-3">Minimalist Neck Details</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$135</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Artisan Collar Polo', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -407,8 +420,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Botanical Heritage Tee</h3>
                         <p class="text-xs text-black/50 mb-3">Multi-color Hand Stitch</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$95</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Botanical Heritage Tee', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -422,8 +435,8 @@
                         <h3 class="text-sm font-semibold text-apple-dark">Crest Oversized Sweatshirt</h3>
                         <p class="text-xs text-black/50 mb-3">Chest Patch Embroidery</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold">$165</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                            <span class="text-sm font-bold">₹2599</span>
+                            <button onclick="openOrder('Crest Oversized Sweatshirt', 2599)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
                         </div>
                     </div>
                 </div>
@@ -449,8 +462,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Monolithic Black Hoodie</h3>
                         <p class="text-sm text-black/50 mb-4">500 GSM French Terry Cotton</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$160</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Monolithic Black Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -464,8 +477,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Raw Chalk Zip-Up Hoodie</h3>
                         <p class="text-sm text-black/50 mb-4">Double-headed Metal Zipper</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$170</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Raw Chalk Zip-Up Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -479,8 +492,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Terracotta Culture Hoodie</h3>
                         <p class="text-xs sm:text-sm text-black/50 mb-4">Earth Pigment Dyed</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$165</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Terracotta Culture Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -494,8 +507,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Slate Grey Minimal Pullover</h3>
                         <p class="text-sm text-black/50 mb-4">Seamless Cuffs & Hem</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$150</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Slate Grey Minimal Pullover', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -509,8 +522,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Sanskrit Crest Heavy Hoodie</h3>
                         <p class="text-sm text-black/50 mb-4">Back Embroidered Accent</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$180</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Sanskrit Crest Heavy Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -524,8 +537,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Midnight Shadow Hoodie</h3>
                         <p class="text-sm text-black/50 mb-4">Velvet Finished Cotton</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$175</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹1699</span>
+                            <button onclick="openOrder('Midnight Shadow Hoodie', 1699)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -551,8 +564,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Minimalist Piqué Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Mother of Pearl Buttons</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$110</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Minimalist Piqué Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -566,8 +579,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Heritage Knit Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Breathable Micro-Mesh</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$125</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Heritage Knit Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -581,8 +594,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Structured Zipper Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Matte Black Zipper Hardware</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$130</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Structured Zipper Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -596,8 +609,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Chest Micro-Stitching</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$120</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Embroidered Emblem Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -611,8 +624,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Sandstone Relaxed Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Drop Shoulder Silhouette</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$115</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Sandstone Relaxed Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -626,8 +639,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Midnight Monolith Polo</h3>
                         <p class="text-sm text-black/50 mb-4">Pitch Black Double Knit</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$135</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹999</span>
+                            <button onclick="openOrder('Midnight Monolith Polo', 999)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -653,8 +666,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Essential Heavyweight Tee</h3>
                         <p class="text-sm text-black/50 mb-4">280 GSM Egyptian Cotton</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$65</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Essential Heavyweight Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -668,8 +681,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Kala Script Oversized Tee</h3>
                         <p class="text-sm text-black/50 mb-4">Subtle Neck Collar Print</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$75</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Kala Script Oversized Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -683,8 +696,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Tee</h3>
                         <p class="text-sm text-black/50 mb-4">Fine Silk Chest Stitch</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$85</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Embroidered Emblem Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -698,8 +711,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Raw Bone Boxy Tee</h3>
                         <p class="text-sm text-black/50 mb-4">Unbleached Organic Finish</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$70</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Raw Bone Boxy Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -713,8 +726,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Mandala Back Micro-Print Tee</h3>
                         <p class="text-sm text-black/50 mb-4">High Density Ink</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$80</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Mandala Back Micro-Print Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -728,8 +741,8 @@
                         <h3 class="text-lg font-semibold text-apple-dark">Pitch Black Drop-Shoulder Tee</h3>
                         <p class="text-sm text-black/50 mb-4">Seamless Ribbed Neck</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-base font-bold">$75</span>
-                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                            <span class="text-base font-bold">₹799</span>
+                            <button onclick="openOrder('Pitch Black Drop-Shoulder Tee', 799)" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -869,6 +882,42 @@
         </div>
     </footer>
 
+    <!-- ORDER MODAL -->
+    <div id="orderModal" class="hidden">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeOrder()" aria-label="Close" class="absolute top-4 right-4 text-black/40 hover:text-black text-xl leading-none">&times;</button>
+            <h3 class="text-xl font-bold mb-1 text-apple-dark">Place Your Order</h3>
+            <p id="modalProductDisplay" class="text-sm text-black/60 mb-6 font-medium">—</p>
+
+            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
+                <input type="hidden" id="orderProductName">
+                <input type="hidden" id="orderProductPrice">
+
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Full Name</label>
+                    <input type="text" id="custName" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Phone Number</label>
+                    <input type="tel" id="custPhone" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Email Address</label>
+                    <input type="email" id="custEmail" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Delivery Address</label>
+                    <textarea id="custAddress" required rows="3" class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-apple-dark text-white py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors mt-2">
+                    Confirm Order
+                </button>
+                <p class="text-[11px] text-black/40 text-center mt-2">This opens your email app to send the order to us.</p>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Scroll Animation Observer
@@ -890,6 +939,53 @@
             const fadeElements = document.querySelectorAll(".fade-up");
             fadeElements.forEach(el => observer.observe(el));
         });
+
+        // ---- ORDER SYSTEM ----
+        function openOrder(productName, price) {
+            document.getElementById('orderProductName').value = productName;
+            document.getElementById('orderProductPrice').value = price;
+            document.getElementById('modalProductDisplay').textContent = productName + ' — ₹' + price;
+            document.getElementById('orderModal').classList.remove('hidden');
+        }
+
+        function closeOrder() {
+            document.getElementById('orderModal').classList.add('hidden');
+            document.getElementById('orderForm').reset();
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const product = document.getElementById('orderProductName').value;
+            const price = document.getElementById('orderProductPrice').value;
+
+            if (!name || !phone || !email || !address) {
+                alert('Please fill in all fields to place your order.');
+                return;
+            }
+
+            const subject = encodeURIComponent('New Order — ' + product);
+            const body = encodeURIComponent(
+                'NEW ORDER RECEIVED\n' +
+                '------------------------\n' +
+                'Product: ' + product + '\n' +
+                'Price: ₹' + price + '\n\n' +
+                'CUSTOMER DETAILS\n' +
+                '------------------------\n' +
+                'Name: ' + name + '\n' +
+                'Phone: ' + phone + '\n' +
+                'Email: ' + email + '\n' +
+                'Address: ' + address
+            );
+
+            window.location.href = 'mailto:pramilasahu324@gmail.com?subject=' + subject + '&body=' + body;
+
+            closeOrder();
+        }
     </script>
 </body>
 </html>
