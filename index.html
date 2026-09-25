@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>कला CULTURE | The Fabric of Modern Tradition</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Config for Apple Typography and Colors -->
+    <!-- Tailwind Custom Configuration for Apple SF Pro Aesthetics -->
     <script>
         tailwind.config = {
             theme: {
@@ -25,19 +25,22 @@
                         apple: {
                             dark: '#1d1d1f',
                             gray: '#f5f5f7',
+                            cardGray: '#fbfbfd',
                             blue: '#0066cc',
-                            bluehover: '#0077ed'
+                            bluehover: '#0077ed',
+                            border: 'rgba(0, 0, 0, 0.08)'
                         }
                     },
                     letterSpacing: {
-                        tightest: '-.02em',
+                        tightest: '-.03em',
+                        tight: '-.015em',
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Custom CSS for Scroll Animations */
+        /* IntersectionObserver Scroll Fade-Up Animation */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
@@ -48,155 +51,831 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Subtle glassmorphism utility */
+        .apple-glass {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d1d6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #98989d;
+        }
     </style>
 </head>
 <body class="font-sans text-apple-dark bg-white antialiased selection:bg-apple-dark selection:text-white">
 
-    <!-- Sticky Glassmorphism Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-black/5">
+    <nav class="fixed top-0 w-full z-50 apple-glass border-b border-black/5 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-14 text-xs font-medium tracking-wide">
-                <!-- Logo -->
-                <a href="#" class="text-lg font-bold tracking-tight">कला CULTURE</a>
+            <div class="flex justify-between items-center h-12 md:h-14 text-xs font-medium tracking-tight">
+                <!-- Brand Logo -->
+                <a href="#" class="text-base md:text-lg font-bold tracking-tight text-apple-dark hover:opacity-80 transition-opacity">
+                    कला CULTURE
+                </a>
                 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 text-black/80">
-                    <a href="#" class="hover:text-black transition-colors">Store</a>
-                    <a href="#" class="hover:text-black transition-colors">Collections</a>
-                    <a href="#" class="hover:text-black transition-colors">Heritage</a>
-                    <a href="#" class="hover:text-black transition-colors">Vision</a>
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex space-x-8 text-black/80 font-normal">
+                    <a href="#story" class="hover:text-black transition-colors">Story</a>
+                    <a href="#new-arrivals" class="hover:text-black transition-colors">New Arrivals</a>
+                    <a href="#embroidery" class="hover:text-black transition-colors">Embroidery</a>
+                    <a href="#hoodies" class="hover:text-black transition-colors">Hoodies</a>
+                    <a href="#polos" class="hover:text-black transition-colors">Polos</a>
+                    <a href="#tshirts" class="hover:text-black transition-colors">T-Shirts</a>
+                    <a href="#garment-care" class="hover:text-black transition-colors">Garment Care</a>
                 </div>
                 
-                <!-- Icons/Cart -->
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-black/70">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                    </a>
-                    <a href="#" class="hover:text-black/70">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/></svg>
-                    </a>
+                <!-- Utility Icons -->
+                <div class="flex items-center space-x-5">
+                    <button aria-label="Search" class="text-black/80 hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                    <button aria-label="Shopping Bag" class="text-black/80 hover:text-black transition-colors relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-2 bg-black text-white text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">0</span>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-14">
-        <!-- Background Image Placeholder (Subtle gray for minimal feel, replace with actual high-res photo) -->
-        <div class="absolute inset-0 bg-apple-gray -z-10 object-cover w-full h-full"></div>
-        
-        <div class="fade-up z-10 px-4">
-            <h2 class="text-sm md:text-base font-semibold tracking-widest text-orange-600 mb-2 uppercase">New Collection</h2>
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tightest mb-4">कला CULTURE.</h1>
-            <p class="text-2xl md:text-3xl font-medium text-black/80 tracking-tight mb-8">The fabric of modern tradition.</p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-4">
-                <!-- Apple Pill Button -->
-                <a href="#" class="bg-apple-dark text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors w-full sm:w-auto">Shop the Collection</a>
-                <!-- Apple Text Link -->
-                <a href="#" class="text-apple-blue hover:text-apple-bluehover text-lg font-medium flex items-center transition-colors group">
-                    Learn more 
-                    <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-16 bg-apple-gray overflow-hidden">
+        <div class="max-w-4xl mx-auto z-10 fade-up">
+            <span class="inline-block text-xs font-semibold tracking-widest text-black/60 uppercase mb-3">Introducing</span>
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tightest mb-4 text-apple-dark">
+                कला CULTURE.
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-3xl font-medium text-black/70 tracking-tight max-w-2xl mx-auto mb-8">
+                The fabric of modern tradition. Sculpted with minimalist precision.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#new-arrivals" class="w-full sm:w-auto bg-apple-dark text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-black transition-all transform hover:scale-[1.02]">
+                    Explore Collection
                 </a>
+                <a href="#story" class="text-apple-blue hover:text-apple-bluehover text-base font-medium flex items-center transition-colors group px-4 py-2">
+                    Read the Story <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Graphic Placeholder Showcase -->
+        <div class="mt-12 w-full max-w-5xl h-[300px] sm:h-[450px] bg-gradient-to-b from-white/60 to-transparent rounded-t-[2.5rem] border-t border-l border-r border-black/5 p-6 shadow-2xl flex items-end justify-center overflow-hidden fade-up">
+            <div class="text-center pb-8">
+                <p class="text-xs uppercase tracking-widest text-black/40 font-semibold mb-2">Architectural Apparel</p>
+                <p class="text-2xl sm:text-4xl font-bold text-black/80 tracking-tight">Pure Form. Uncompromised Heritage.</p>
             </div>
         </div>
     </header>
 
-    <!-- Bento Box Section (Craftsmanship & Materials) -->
-    <section class="bg-white py-32 px-4 sm:px-6 lg:px-8">
+    <section id="story" class="py-28 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
+        <div class="max-w-4xl mx-auto text-center fade-up">
+            <span class="text-xs font-semibold tracking-widest text-orange-600 uppercase mb-2 block">Our Heritage & Vision</span>
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tightest mb-8 text-apple-dark">
+                Where Centuries of Artistry Meet the Future of Minimalism.
+            </h2>
+            <div class="space-y-6 text-lg sm:text-xl text-black/70 font-normal leading-relaxed text-left sm:text-center">
+                <p>
+                    <strong class="text-apple-dark font-semibold">"कला" (Kala)</strong> is the Sanskrit word for Art. But to us, art is not merely something you observe in a gallery—it is something you inhabit. It is the weight of the thread, the tension of the weave, and the silent confidence of a perfectly cut silhouette.
+                </p>
+                <p>
+                    <strong>कला CULTURE</strong> was born out of a relentless ambition: to rescue traditional craftsmanship from the pages of history and re-engineer it for the modern world. We refuse to compromise between the rich, soul-filled artistry of hand-crafted heritage and the clean, uncompromising geometry of contemporary streetwear.
+                </p>
+                <p>
+                    Every garment we build is a canvas of patience. We spent months obsessing over gram-per-square-meter weight, hand-embroidery tension, and ergonomic drape. When you wear कला CULTURE, you aren't just wearing clothes—you are carrying forward thousands of years of human creativity, sculpted into a timeless modern uniform.
+                </p>
+            </div>
+            <div class="mt-12 pt-8 border-t border-apple-border flex flex-wrap justify-center gap-8 text-sm font-medium text-black/60">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>100% Organic Heavyweight Cotton</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>Hand-Drawn Artisan Embroidery</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>Zero Plastic Packaging</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-arrivals" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Engineered for elegance.</h2>
-                <p class="text-xl text-black/60 font-medium">Precision in every thread.</p>
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">New Arrivals.</h2>
+                <p class="text-lg text-black/60 font-medium">The latest iterations in our signature silhouettes.</p>
             </div>
 
-            <!-- Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 (Large) -->
-                <div class="fade-up md:col-span-2 bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 overflow-hidden relative">
-                    <div class="z-10">
-                        <h3 class="text-2xl font-bold mb-2">Pro-level comfort.</h3>
-                        <p class="text-black/60 font-medium">Breathable linen blends designed for the modern climate.</p>
+            <!-- Grid of 10 Products -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Product 1 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 01 ]</span>
+                        <span class="absolute top-3 left-3 bg-black text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">New</span>
                     </div>
-                    <!-- Placeholder for close up fabric shot -->
-                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-gray-300 rounded-full blur-3xl opacity-50"></div>
-                </div>
-
-                <!-- Card 2 (Square) -->
-                <div class="fade-up bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500">
                     <div>
-                        <h3 class="text-2xl font-bold mb-2">Woven to perfection.</h3>
-                        <p class="text-black/60 font-medium">Artisanal techniques meet modern silhouettes.</p>
+                        <h3 class="text-sm font-semibold text-apple-dark">Kala Monolith Hoodie</h3>
+                        <p class="text-xs text-black/50 mb-3">450 GSM Heavy Terry</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$140</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 3 (Square) -->
-                <div class="fade-up bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500">
+                <!-- Product 2 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 02 ]</span>
+                    </div>
                     <div>
-                        <h3 class="text-2xl font-bold mb-2">Sustainable core.</h3>
-                        <p class="text-black/60 font-medium">Ethically sourced materials.</p>
+                        <h3 class="text-sm font-semibold text-apple-dark">Embroidered Lotus Tee</h3>
+                        <p class="text-xs text-black/50 mb-3">Raw White Silk Thread</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$85</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 4 (Large) -->
-                <div class="fade-up md:col-span-2 bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 overflow-hidden relative">
-                    <div class="z-10">
-                        <h3 class="text-2xl font-bold mb-2">The Heritage Kurta</h3>
-                        <p class="text-black/60 font-medium">Redesigned from the ground up.</p>
-                        <a href="#" class="text-apple-blue hover:text-apple-bluehover text-sm font-medium flex items-center mt-4 group">
-                            Buy <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
-                        </a>
+                <!-- Product 3 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 03 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Architectural Polo</h3>
+                        <p class="text-xs text-black/50 mb-3">Structured Piqué Knit</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$110</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 04 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Sanskrit Glyph Hoodie</h3>
+                        <p class="text-xs text-black/50 mb-3">Puff Print Detail</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$150</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 05 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Heritage Crest Polo</h3>
+                        <p class="text-xs text-black/50 mb-3">Hand-embroidered collar</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$125</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 06 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Minimalist Motif Tee</h3>
+                        <p class="text-xs text-black/50 mb-3">Supima Cotton Blend</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$70</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 07 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Zenith Oversized Hoodie</h3>
+                        <p class="text-xs text-black/50 mb-3">Double-lined hood</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$160</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 08 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Artisan Thread Polo</h3>
+                        <p class="text-xs text-black/50 mb-3">Hidden Placket</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$115</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 09 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Culture Essential Tee</h3>
+                        <p class="text-xs text-black/50 mb-3">280 GSM Heavy Jersey</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$65</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 10 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Shadow Embroidered Hoodie</h3>
+                        <p class="text-xs text-black/50 mb-3">Tonal Stitching</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$155</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Dark Mode Showcase Section -->
-    <section class="bg-black text-white py-32 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-1/2 fade-up">
-                <h2 class="text-5xl md:text-7xl font-bold tracking-tightest mb-6">Midnight Edition.</h2>
-                <p class="text-2xl text-white/70 font-medium mb-8">Bold. Dramatic. Unapologetic.</p>
-                <p class="text-lg text-white/50 mb-10 max-w-md">Our signature aesthetic reimagined in pitch black. Features custom-milled organic cotton and hidden seams for a flawless drape.</p>
-                
-                <a href="#" class="bg-white text-black px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors inline-block">Explore Midnight</a>
-            </div>
-            
-            <div class="md:w-1/2 fade-up">
-                <!-- Placeholder for dark mode garment -->
-                <div class="aspect-square bg-gray-900 rounded-[2rem] border border-gray-800 flex items-center justify-center">
-                    <span class="text-gray-700 font-medium text-sm">[ Product Image Placeholder ]</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-apple-gray py-12 px-4 sm:px-6 lg:px-8 text-xs text-black/50 font-medium border-t border-black/5">
+    <section id="embroidery" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
         <div class="max-w-7xl mx-auto">
-            <p class="mb-4">1. Trade-in values will vary based on the condition and type of your eligible trade-in clothing.</p>
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-up">
+                <div>
+                    <span class="text-xs font-semibold tracking-widest text-orange-600 uppercase mb-2 block">Artisanal Precision</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold tracking-tight">The Embroidery Collection.</h2>
+                </div>
+                <p class="text-base text-black/60 max-w-md mt-4 md:mt-0 font-medium">
+                    Over 50,000 stitches per piece, crafted by master artisans using high-tensile silk threads.
+                </p>
+            </div>
+
+            <!-- Grid of 5 Products -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Embroidery Item 1 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 01 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Mandala Back-Embroidered Tee</h3>
+                        <p class="text-xs text-black/50 mb-3">Gold Silk Threadwork</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$120</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embroidery Item 2 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 02 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Kala Sigil Heavy Hoodie</h3>
+                        <p class="text-xs text-black/50 mb-3">Raised Micro Stitching</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$175</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embroidery Item 3 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 03 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Artisan Collar Polo</h3>
+                        <p class="text-xs text-black/50 mb-3">Minimalist Neck Details</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$135</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embroidery Item 4 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 04 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Botanical Heritage Tee</h3>
+                        <p class="text-xs text-black/50 mb-3">Multi-color Hand Stitch</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$95</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embroidery Item 5 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 05 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">Crest Oversized Sweatshirt</h3>
+                        <p class="text-xs text-black/50 mb-3">Chest Patch Embroidery</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">$165</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hoodies" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">Hoodies.</h2>
+                <p class="text-lg text-black/60 font-medium">Heavyweight warmth. Architectural structure.</p>
+            </div>
+
+            <!-- Grid of 6 Products -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Hoodie 1 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 01 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Monolithic Black Hoodie</h3>
+                        <p class="text-sm text-black/50 mb-4">500 GSM French Terry Cotton</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$160</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoodie 2 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 02 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Raw Chalk Zip-Up Hoodie</h3>
+                        <p class="text-sm text-black/50 mb-4">Double-headed Metal Zipper</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$170</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoodie 3 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 03 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Terracotta Culture Hoodie</h3>
+                        <p class="text-xs sm:text-sm text-black/50 mb-4">Earth Pigment Dyed</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$165</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoodie 4 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 04 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Slate Grey Minimal Pullover</h3>
+                        <p class="text-sm text-black/50 mb-4">Seamless Cuffs & Hem</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$150</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoodie 5 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 05 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Sanskrit Crest Heavy Hoodie</h3>
+                        <p class="text-sm text-black/50 mb-4">Back Embroidered Accent</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$180</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoodie 6 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 06 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Midnight Shadow Hoodie</h3>
+                        <p class="text-sm text-black/50 mb-4">Velvet Finished Cotton</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$175</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="polos" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">Polos.</h2>
+                <p class="text-lg text-black/60 font-medium">Refined sophistication meets clean modern cuts.</p>
+            </div>
+
+            <!-- Grid of 6 Products -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Polo 1 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 01 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Minimalist Piqué Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Mother of Pearl Buttons</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$110</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polo 2 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 02 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Heritage Knit Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Breathable Micro-Mesh</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$125</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polo 3 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 03 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Structured Zipper Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Matte Black Zipper Hardware</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$130</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polo 4 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 04 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Chest Micro-Stitching</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$120</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polo 5 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 05 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Sandstone Relaxed Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Drop Shoulder Silhouette</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$115</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polo 6 -->
+                <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 06 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Midnight Monolith Polo</h3>
+                        <p class="text-sm text-black/50 mb-4">Pitch Black Double Knit</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$135</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tshirts" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">T-Shirts.</h2>
+                <p class="text-lg text-black/60 font-medium">Daily essentials elevated through master tailoring.</p>
+            </div>
+
+            <!-- Grid of 6 Products -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- T-Shirt 1 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 01 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Essential Heavyweight Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">280 GSM Egyptian Cotton</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$65</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 2 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 02 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Kala Script Oversized Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">Subtle Neck Collar Print</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$75</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 3 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 03 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">Fine Silk Chest Stitch</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$85</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 4 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 04 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Raw Bone Boxy Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">Unbleached Organic Finish</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$70</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 5 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 05 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Mandala Back Micro-Print Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">High Density Ink</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$80</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 6 -->
+                <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
+                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 06 ]</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">Pitch Black Drop-Shoulder Tee</h3>
+                        <p class="text-sm text-black/50 mb-4">Seamless Ribbed Neck</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">$75</span>
+                            <button class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="garment-care" class="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold tracking-widest text-blue-600 uppercase mb-2 block">Longevity Engineering</span>
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-apple-dark">
+                    🧺 Garment Care Protocol
+                </h2>
+                <p class="text-lg text-black/60 font-medium">
+                    Best washing method for embroidered clothes to ensure lifetime durability.
+                </p>
+            </div>
+
+            <!-- Apple-style Card with Instructions -->
+            <div class="bg-apple-cardGray rounded-[2.5rem] p-8 sm:p-12 border border-apple-border shadow-sm fade-up space-y-8">
+                <!-- Step List -->
+                <ol class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium text-black/80">
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">1</span>
+                        <span>Turn the garment inside out before washing.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">2</span>
+                        <span>Use cold water (20–30°C).</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">3</span>
+                        <span>Use a mild liquid detergent—avoid bleach and harsh stain removers.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">4</span>
+                        <span>Choose a gentle/delicate machine cycle with low spin.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">5</span>
+                        <span>Wash with similar colours and avoid rough items like towels or denim.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">6</span>
+                        <span>Don’t scrub directly over the embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">7</span>
+                        <span>Don’t wring or twist the garment, as this can distort the embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">8</span>
+                        <span>If washing by hand, gently soak and press rather than rubbing.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">9</span>
+                        <span>Air-dry naturally, preferably in shade. Avoid high heat.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">10</span>
+                        <span>Don’t iron directly over the embroidery. Turn the garment inside out and use low/medium heat, or place a thin cloth between the iron and embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">11</span>
+                        <span>Avoid tumble drying unless the care label specifically permits it.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">12</span>
+                        <span>For particularly delicate or raised embroidery, hand washing is safest.</span>
+                    </li>
+                </ol>
+
+                <!-- Formula Highlight Box -->
+                <div class="mt-8 p-6 bg-black text-white rounded-3xl shadow-lg">
+                    <p class="text-xs uppercase tracking-widest text-white/60 font-semibold mb-2">The Golden Rule</p>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3">Premium-care formula:</h3>
+                    <p class="text-sm sm:text-base font-medium text-white/90 leading-relaxed font-mono">
+                        Inside out <span class="text-orange-400">→</span> cold water <span class="text-orange-400">→</span> mild detergent <span class="text-orange-400">→</span> gentle wash <span class="text-orange-400">→</span> low spin <span class="text-orange-400">→</span> shade dry <span class="text-orange-400">→</span> iron inside out.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-apple-gray py-16 px-4 sm:px-6 lg:px-8 text-xs text-black/60 font-normal border-t border-apple-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#new-arrivals" class="hover:text-black">New Arrivals</a></li>
+                        <li><a href="#embroidery" class="hover:text-black">Embroidery Collection</a></li>
+                        <li><a href="#hoodies" class="hover:text-black">Hoodies</a></li>
+                        <li><a href="#polos" class="hover:text-black">Polos</a></li>
+                        <li><a href="#tshirts" class="hover:text-black">T-Shirts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Brand</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#story" class="hover:text-black">Our Story</a></li>
+                        <li><a href="#garment-care" class="hover:text-black">Garment Care</a></li>
+                        <li><a href="#" class="hover:text-black">Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-black">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-black">Order Status</a></li>
+                        <li><a href="#" class="hover:text-black">Shipping & Delivery</a></li>
+                        <li><a href="#" class="hover:text-black">Returns & Exchanges</a></li>
+                        <li><a href="#" class="hover:text-black">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Connect</h4>
+                    <p class="mb-3 text-black/60">Subscribe to receive early access to limited capsule releases.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter email" class="px-3 py-1.5 rounded-l-full border border-black/20 bg-white text-xs focus:outline-none w-full">
+                        <button class="bg-black text-white px-3 py-1.5 rounded-r-full text-xs font-semibold hover:bg-black/80">Join</button>
+                    </div>
+                </div>
+            </div>
+
             <hr class="border-black/10 my-6">
+
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p>Copyright © 2026 कला CULTURE Inc. All rights reserved.</p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-6 text-black/50">
                     <a href="#" class="hover:text-black">Privacy Policy</a>
-                    <span class="border-l border-black/20"></span>
-                    <a href="#" class="hover:text-black">Terms of Use</a>
-                    <span class="border-l border-black/20"></span>
-                    <a href="#" class="hover:text-black">Sales and Refunds</a>
+                    <a href="#" class="hover:text-black">Terms of Sale</a>
+                    <a href="#" class="hover:text-black">Legal</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript for Scroll Fade-Up Animations -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Scroll Animation Observer
             const observerOptions = {
                 root: null,
                 rootMargin: "0px",
-                threshold: 0.15 
+                threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
