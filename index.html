@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कला CULTURE | The Fabric of Modern Tradition</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config for Apple Typography and Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"SF Pro Display"', 
+                            '"SF Pro Text"', 
+                            '"Helvetica Neue"', 
+                            'sans-serif'
+                        ],
+                    },
+                    colors: {
+                        apple: {
+                            dark: '#1d1d1f',
+                            gray: '#f5f5f7',
+                            blue: '#0066cc',
+                            bluehover: '#0077ed'
+                        }
+                    },
+                    letterSpacing: {
+                        tightest: '-.02em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for Scroll Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans text-apple-dark bg-white antialiased selection:bg-apple-dark selection:text-white">
+
+    <!-- Sticky Glassmorphism Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-14 text-xs font-medium tracking-wide">
+                <!-- Logo -->
+                <a href="#" class="text-lg font-bold tracking-tight">कला CULTURE</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 text-black/80">
+                    <a href="#" class="hover:text-black transition-colors">Store</a>
+                    <a href="#" class="hover:text-black transition-colors">Collections</a>
+                    <a href="#" class="hover:text-black transition-colors">Heritage</a>
+                    <a href="#" class="hover:text-black transition-colors">Vision</a>
+                </div>
+                
+                <!-- Icons/Cart -->
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-black/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                    </a>
+                    <a href="#" class="hover:text-black/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-14">
+        <!-- Background Image Placeholder (Subtle gray for minimal feel, replace with actual high-res photo) -->
+        <div class="absolute inset-0 bg-apple-gray -z-10 object-cover w-full h-full"></div>
+        
+        <div class="fade-up z-10 px-4">
+            <h2 class="text-sm md:text-base font-semibold tracking-widest text-orange-600 mb-2 uppercase">New Collection</h2>
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tightest mb-4">कला CULTURE.</h1>
+            <p class="text-2xl md:text-3xl font-medium text-black/80 tracking-tight mb-8">The fabric of modern tradition.</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-4">
+                <!-- Apple Pill Button -->
+                <a href="#" class="bg-apple-dark text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors w-full sm:w-auto">Shop the Collection</a>
+                <!-- Apple Text Link -->
+                <a href="#" class="text-apple-blue hover:text-apple-bluehover text-lg font-medium flex items-center transition-colors group">
+                    Learn more 
+                    <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bento Box Section (Craftsmanship & Materials) -->
+    <section class="bg-white py-32 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Engineered for elegance.</h2>
+                <p class="text-xl text-black/60 font-medium">Precision in every thread.</p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 (Large) -->
+                <div class="fade-up md:col-span-2 bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 overflow-hidden relative">
+                    <div class="z-10">
+                        <h3 class="text-2xl font-bold mb-2">Pro-level comfort.</h3>
+                        <p class="text-black/60 font-medium">Breathable linen blends designed for the modern climate.</p>
+                    </div>
+                    <!-- Placeholder for close up fabric shot -->
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-gray-300 rounded-full blur-3xl opacity-50"></div>
+                </div>
+
+                <!-- Card 2 (Square) -->
+                <div class="fade-up bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Woven to perfection.</h3>
+                        <p class="text-black/60 font-medium">Artisanal techniques meet modern silhouettes.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 (Square) -->
+                <div class="fade-up bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Sustainable core.</h3>
+                        <p class="text-black/60 font-medium">Ethically sourced materials.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 (Large) -->
+                <div class="fade-up md:col-span-2 bg-apple-gray rounded-[2rem] p-10 h-[400px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 overflow-hidden relative">
+                    <div class="z-10">
+                        <h3 class="text-2xl font-bold mb-2">The Heritage Kurta</h3>
+                        <p class="text-black/60 font-medium">Redesigned from the ground up.</p>
+                        <a href="#" class="text-apple-blue hover:text-apple-bluehover text-sm font-medium flex items-center mt-4 group">
+                            Buy <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark Mode Showcase Section -->
+    <section class="bg-black text-white py-32 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2 fade-up">
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tightest mb-6">Midnight Edition.</h2>
+                <p class="text-2xl text-white/70 font-medium mb-8">Bold. Dramatic. Unapologetic.</p>
+                <p class="text-lg text-white/50 mb-10 max-w-md">Our signature aesthetic reimagined in pitch black. Features custom-milled organic cotton and hidden seams for a flawless drape.</p>
+                
+                <a href="#" class="bg-white text-black px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors inline-block">Explore Midnight</a>
+            </div>
+            
+            <div class="md:w-1/2 fade-up">
+                <!-- Placeholder for dark mode garment -->
+                <div class="aspect-square bg-gray-900 rounded-[2rem] border border-gray-800 flex items-center justify-center">
+                    <span class="text-gray-700 font-medium text-sm">[ Product Image Placeholder ]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-apple-gray py-12 px-4 sm:px-6 lg:px-8 text-xs text-black/50 font-medium border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-4">1. Trade-in values will vary based on the condition and type of your eligible trade-in clothing.</p>
+            <hr class="border-black/10 my-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>Copyright © 2026 कला CULTURE Inc. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-black">Privacy Policy</a>
+                    <span class="border-l border-black/20"></span>
+                    <a href="#" class="hover:text-black">Terms of Use</a>
+                    <span class="border-l border-black/20"></span>
+                    <a href="#" class="hover:text-black">Sales and Refunds</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Scroll Fade-Up Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll(".fade-up");
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
