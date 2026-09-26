@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>कला CULTURE | The Fabric of Modern Tradition</title>
-    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Custom Configuration for Apple SF Pro Aesthetics -->
     <script>
         tailwind.config = {
             theme: {
@@ -40,7 +38,6 @@
         }
     </script>
     <style>
-        /* IntersectionObserver Scroll Fade-Up Animation */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
@@ -51,30 +48,15 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Subtle glassmorphism utility */
         .apple-glass {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
-
-        /* Custom subtle scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f5f5f7;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d1d1d6;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #98989d;
-        }
-
-        /* Order Modal */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5f5f7; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #98989d; }
         #orderModal {
             position: fixed;
             inset: 0;
@@ -93,12 +75,9 @@
     <nav class="fixed top-0 w-full z-50 apple-glass border-b border-black/5 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-12 md:h-14 text-xs font-medium tracking-tight">
-                <!-- Brand Logo -->
                 <a href="#" class="text-base md:text-lg font-bold tracking-tight text-apple-dark hover:opacity-80 transition-opacity">
                     कला CULTURE
                 </a>
-                
-                <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex space-x-8 text-black/80 font-normal">
                     <a href="#story" class="hover:text-black transition-colors">Story</a>
                     <a href="#new-arrivals" class="hover:text-black transition-colors">New Arrivals</a>
@@ -108,8 +87,6 @@
                     <a href="#tshirts" class="hover:text-black transition-colors">T-Shirts</a>
                     <a href="#garment-care" class="hover:text-black transition-colors">Garment Care</a>
                 </div>
-                
-                <!-- Utility Icons -->
                 <div class="flex items-center space-x-5">
                     <button aria-label="Search" class="text-black/80 hover:text-black transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
@@ -145,8 +122,6 @@
                 </a>
             </div>
         </div>
-
-        <!-- Hero Graphic Placeholder Showcase -->
         <div class="mt-12 w-full max-w-5xl h-[300px] sm:h-[450px] bg-gradient-to-b from-white/60 to-transparent rounded-t-[2.5rem] border-t border-l border-r border-black/5 p-6 shadow-2xl flex items-end justify-center overflow-hidden fade-up">
             <div class="text-center pb-8">
                 <p class="text-xs uppercase tracking-widest text-black/40 font-semibold mb-2">Architectural Apparel</p>
@@ -196,12 +171,10 @@
                 <p class="text-lg text-black/60 font-medium">The latest iterations in our signature silhouettes.</p>
             </div>
 
-            <!-- Grid of 10 Products -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Product 1 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 01 ]</span>
+                        <img src="images/C0.png" alt="Kala Monolith Hoodie" class="w-full h-full object-cover" loading="lazy">
                         <span class="absolute top-3 left-3 bg-black text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">New</span>
                     </div>
                     <div>
@@ -214,10 +187,9 @@
                     </div>
                 </div>
 
-                <!-- Product 2 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 02 ]</span>
+                        <img src="images/C00.png" alt="Embroidered Lotus Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Embroidered Lotus Tee</h3>
@@ -229,10 +201,9 @@
                     </div>
                 </div>
 
-                <!-- Product 3 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 03 ]</span>
+                        <img src="images/C1.png" alt="Architectural Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Architectural Polo</h3>
@@ -244,10 +215,9 @@
                     </div>
                 </div>
 
-                <!-- Product 4 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 04 ]</span>
+                        <img src="images/C10.png" alt="Sanskrit Glyph Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Sanskrit Glyph Hoodie</h3>
@@ -259,10 +229,9 @@
                     </div>
                 </div>
 
-                <!-- Product 5 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 05 ]</span>
+                        <img src="images/C11.png" alt="Heritage Crest Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Heritage Crest Polo</h3>
@@ -274,10 +243,9 @@
                     </div>
                 </div>
 
-                <!-- Product 6 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 06 ]</span>
+                        <img src="images/C111.png" alt="Minimalist Motif Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Minimalist Motif Tee</h3>
@@ -289,10 +257,9 @@
                     </div>
                 </div>
 
-                <!-- Product 7 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 07 ]</span>
+                        <img src="images/C12.png" alt="Zenith Oversized Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Zenith Oversized Hoodie</h3>
@@ -304,10 +271,9 @@
                     </div>
                 </div>
 
-                <!-- Product 8 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 08 ]</span>
+                        <img src="images/C13.png" alt="Artisan Thread Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Artisan Thread Polo</h3>
@@ -319,10 +285,9 @@
                     </div>
                 </div>
 
-                <!-- Product 9 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 09 ]</span>
+                        <img src="images/C14.png" alt="Culture Essential Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Culture Essential Tee</h3>
@@ -334,10 +299,9 @@
                     </div>
                 </div>
 
-                <!-- Product 10 -->
                 <div class="fade-up bg-white rounded-3xl p-5 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Image 10 ]</span>
+                        <img src="images/C2.png" alt="Shadow Embroidered Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Shadow Embroidered Hoodie</h3>
@@ -364,12 +328,10 @@
                 </p>
             </div>
 
-            <!-- Grid of 5 Products -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Embroidery Item 1 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 01 ]</span>
+                        <img src="images/C4.png" alt="Mandala Back-Embroidered Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Mandala Back-Embroidered Tee</h3>
@@ -381,10 +343,9 @@
                     </div>
                 </div>
 
-                <!-- Embroidery Item 2 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 02 ]</span>
+                        <img src="images/C5.png" alt="Kala Sigil Heavy Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Kala Sigil Heavy Hoodie</h3>
@@ -396,10 +357,9 @@
                     </div>
                 </div>
 
-                <!-- Embroidery Item 3 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 03 ]</span>
+                        <img src="images/C6.png" alt="Artisan Collar Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Artisan Collar Polo</h3>
@@ -411,10 +371,9 @@
                     </div>
                 </div>
 
-                <!-- Embroidery Item 4 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 04 ]</span>
+                        <img src="images/C7.png" alt="Botanical Heritage Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Botanical Heritage Tee</h3>
@@ -426,10 +385,9 @@
                     </div>
                 </div>
 
-                <!-- Embroidery Item 5 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-5 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Embroidery 05 ]</span>
+                        <img src="images/C8.png" alt="Crest Oversized Sweatshirt" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold text-apple-dark">Crest Oversized Sweatshirt</h3>
@@ -451,12 +409,10 @@
                 <p class="text-lg text-black/60 font-medium">Heavyweight warmth. Architectural structure.</p>
             </div>
 
-            <!-- Grid of 6 Products -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Hoodie 1 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 01 ]</span>
+                        <img src="images/C9.png" alt="Monolithic Black Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Monolithic Black Hoodie</h3>
@@ -468,10 +424,9 @@
                     </div>
                 </div>
 
-                <!-- Hoodie 2 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 02 ]</span>
+                        <img src="images/CULTURE-12.png" alt="Raw Chalk Zip-Up Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Raw Chalk Zip-Up Hoodie</h3>
@@ -483,10 +438,9 @@
                     </div>
                 </div>
 
-                <!-- Hoodie 3 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 03 ]</span>
+                        <img src="images/C0.png" alt="Terracotta Culture Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Terracotta Culture Hoodie</h3>
@@ -498,10 +452,9 @@
                     </div>
                 </div>
 
-                <!-- Hoodie 4 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 04 ]</span>
+                        <img src="images/C00.png" alt="Slate Grey Minimal Pullover" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Slate Grey Minimal Pullover</h3>
@@ -513,10 +466,9 @@
                     </div>
                 </div>
 
-                <!-- Hoodie 5 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 05 ]</span>
+                        <img src="images/C1.png" alt="Sanskrit Crest Heavy Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Sanskrit Crest Heavy Hoodie</h3>
@@ -528,10 +480,9 @@
                     </div>
                 </div>
 
-                <!-- Hoodie 6 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Hoodie Image 06 ]</span>
+                        <img src="images/C10.png" alt="Midnight Shadow Hoodie" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Midnight Shadow Hoodie</h3>
@@ -553,12 +504,10 @@
                 <p class="text-lg text-black/60 font-medium">Refined sophistication meets clean modern cuts.</p>
             </div>
 
-            <!-- Grid of 6 Products -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Polo 1 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 01 ]</span>
+                        <img src="images/C11.png" alt="Minimalist Piqué Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Minimalist Piqué Polo</h3>
@@ -570,10 +519,9 @@
                     </div>
                 </div>
 
-                <!-- Polo 2 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 02 ]</span>
+                        <img src="images/C111.png" alt="Heritage Knit Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Heritage Knit Polo</h3>
@@ -585,10 +533,9 @@
                     </div>
                 </div>
 
-                <!-- Polo 3 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 03 ]</span>
+                        <img src="images/C12.png" alt="Structured Zipper Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Structured Zipper Polo</h3>
@@ -600,10 +547,9 @@
                     </div>
                 </div>
 
-                <!-- Polo 4 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 04 ]</span>
+                        <img src="images/C13.png" alt="Embroidered Emblem Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Polo</h3>
@@ -615,10 +561,9 @@
                     </div>
                 </div>
 
-                <!-- Polo 5 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 05 ]</span>
+                        <img src="images/C14.png" alt="Sandstone Relaxed Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Sandstone Relaxed Polo</h3>
@@ -630,10 +575,9 @@
                     </div>
                 </div>
 
-                <!-- Polo 6 -->
                 <div class="fade-up bg-apple-cardGray rounded-3xl p-6 border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Polo Image 06 ]</span>
+                        <img src="images/C2.png" alt="Midnight Monolith Polo" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Midnight Monolith Polo</h3>
@@ -655,12 +599,10 @@
                 <p class="text-lg text-black/60 font-medium">Daily essentials elevated through master tailoring.</p>
             </div>
 
-            <!-- Grid of 6 Products -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- T-Shirt 1 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 01 ]</span>
+                        <img src="images/C4.png" alt="Essential Heavyweight Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Essential Heavyweight Tee</h3>
@@ -672,10 +614,9 @@
                     </div>
                 </div>
 
-                <!-- T-Shirt 2 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 02 ]</span>
+                        <img src="images/C5.png" alt="Kala Script Oversized Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Kala Script Oversized Tee</h3>
@@ -687,10 +628,9 @@
                     </div>
                 </div>
 
-                <!-- T-Shirt 3 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 03 ]</span>
+                        <img src="images/C6.png" alt="Embroidered Emblem Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Embroidered Emblem Tee</h3>
@@ -702,10 +642,9 @@
                     </div>
                 </div>
 
-                <!-- T-Shirt 4 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 04 ]</span>
+                        <img src="images/C7.png" alt="Raw Bone Boxy Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Raw Bone Boxy Tee</h3>
@@ -717,10 +656,9 @@
                     </div>
                 </div>
 
-                <!-- T-Shirt 5 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 05 ]</span>
+                        <img src="images/C8.png" alt="Mandala Back Micro-Print Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Mandala Back Micro-Print Tee</h3>
@@ -732,10 +670,9 @@
                     </div>
                 </div>
 
-                <!-- T-Shirt 6 -->
                 <div class="fade-up bg-white rounded-3xl p-6 shadow-sm border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                     <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center">
-                        <span class="text-xs font-mono text-black/30 group-hover:scale-105 transition-transform duration-500">[ Tee Image 06 ]</span>
+                        <img src="images/C9.png" alt="Pitch Black Drop-Shoulder Tee" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-apple-dark">Pitch Black Drop-Shoulder Tee</h3>
@@ -762,9 +699,7 @@
                 </p>
             </div>
 
-            <!-- Apple-style Card with Instructions -->
             <div class="bg-apple-cardGray rounded-[2.5rem] p-8 sm:p-12 border border-apple-border shadow-sm fade-up space-y-8">
-                <!-- Step List -->
                 <ol class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium text-black/80">
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">1</span>
@@ -788,11 +723,11 @@
                     </li>
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">6</span>
-                        <span>Don’t scrub directly over the embroidery.</span>
+                        <span>Don't scrub directly over the embroidery.</span>
                     </li>
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">7</span>
-                        <span>Don’t wring or twist the garment, as this can distort the embroidery.</span>
+                        <span>Don't wring or twist the garment, as this can distort the embroidery.</span>
                     </li>
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">8</span>
@@ -804,7 +739,7 @@
                     </li>
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">10</span>
-                        <span>Don’t iron directly over the embroidery. Turn the garment inside out and use low/medium heat, or place a thin cloth between the iron and embroidery.</span>
+                        <span>Don't iron directly over the embroidery. Turn the garment inside out and use low/medium heat, or place a thin cloth between the iron and embroidery.</span>
                     </li>
                     <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
                         <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">11</span>
@@ -816,7 +751,6 @@
                     </li>
                 </ol>
 
-                <!-- Formula Highlight Box -->
                 <div class="mt-8 p-6 bg-black text-white rounded-3xl shadow-lg">
                     <p class="text-xs uppercase tracking-widest text-white/60 font-semibold mb-2">The Golden Rule</p>
                     <h3 class="text-lg sm:text-xl font-bold mb-3">Premium-care formula:</h3>
@@ -882,7 +816,6 @@
         </div>
     </footer>
 
-    <!-- ORDER MODAL -->
     <div id="orderModal" class="hidden">
         <div class="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeOrder()" aria-label="Close" class="absolute top-4 right-4 text-black/40 hover:text-black text-xl leading-none">&times;</button>
@@ -920,13 +853,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Scroll Animation Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.1
-            };
-
+            const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -935,12 +862,10 @@
                     }
                 });
             }, observerOptions);
-
             const fadeElements = document.querySelectorAll(".fade-up");
             fadeElements.forEach(el => observer.observe(el));
         });
 
-        // ---- ORDER SYSTEM ----
         function openOrder(productName, price) {
             document.getElementById('orderProductName').value = productName;
             document.getElementById('orderProductPrice').value = price;
@@ -955,7 +880,6 @@
 
         function submitOrder(e) {
             e.preventDefault();
-
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
             const email = document.getElementById('custEmail').value.trim();
@@ -983,7 +907,6 @@
             );
 
             window.location.href = 'mailto:pramilasahu324@gmail.com?subject=' + subject + '&body=' + body;
-
             closeOrder();
         }
     </script>
