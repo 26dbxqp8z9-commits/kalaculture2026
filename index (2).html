@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कला CULTURE | The Fabric of Modern Tradition</title>
+    <script>
+        /* Apply saved (or system) theme before first paint to avoid a flash */
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (dark) document.documentElement.classList.add('dark');
+            } catch (e) {}
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"SF Pro Display"', 
+                            '"SF Pro Text"', 
+                            '"Helvetica Neue"', 
+                            'sans-serif'
+                        ],
+                    },
+                    colors: {
+                        /* Colors read from CSS variables (defined in <style>) so the whole
+                           site switches between light and dark without touching the markup */
+                        white: 'rgb(var(--c-white) / <alpha-value>)',
+                        black: 'rgb(var(--c-black) / <alpha-value>)',
+                        apple: {
+                            dark: 'rgb(var(--c-dark) / <alpha-value>)',
+                            gray: 'rgb(var(--c-gray) / <alpha-value>)',
+                            cardGray: 'rgb(var(--c-cardgray) / <alpha-value>)',
+                            blue: 'rgb(var(--c-blue) / <alpha-value>)',
+                            bluehover: 'rgb(var(--c-bluehover) / <alpha-value>)',
+                            border: 'rgb(var(--c-black) / 0.08)'
+                        }
+                    },
+                    letterSpacing: {
+                        tightest: '-.03em',
+                        tight: '-.015em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Theme colors (light = original design) */
+        :root {
+            color-scheme: light;
+            --c-white: 255 255 255;
+            --c-black: 0 0 0;
+            --c-dark: 29 29 31;
+            --c-gray: 245 245 247;
+            --c-cardgray: 251 251 253;
+            --c-blue: 0 102 204;
+            --c-bluehover: 0 119 237;
+        }
+        html.dark {
+            color-scheme: dark;
+            --c-white: 0 0 0;
+            --c-black: 255 255 255;
+            --c-dark: 245 245 247;
+            --c-gray: 28 28 30;
+            --c-cardgray: 18 18 20;
+            --c-blue: 41 151 255;
+            --c-bluehover: 64 156 255;
+        }
+        html.dark .apple-glass { background-color: rgba(0, 0, 0, 0.72); }
+        html.dark ::-webkit-scrollbar-track { background: #1c1c1e; }
+        html.dark ::-webkit-scrollbar-thumb { background: #48484a; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #636366; }
+
+        .theme-icon-sun { display: none; }
+        html.dark .theme-icon-sun { display: block; }
+        html.dark .theme-icon-moon { display: none; }
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .apple-glass {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5f5f7; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #98989d; }
+        #orderModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        #orderModal.hidden { display: none; }
+
+        /* Product image slideshow (added for local multi-slide image support) */
+        .img-slide-dots {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 2;
+        }
+        .img-slide-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.55);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .img-slide-dot:hover { background: rgba(255, 255, 255, 0.85); }
+        .img-slide-dot.active { background: #ffffff; transform: scale(1.25); }
+        .img-slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 9999px;
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease, background 0.2s ease;
+            z-index: 2;
+        }
+        .group:hover .img-slide-arrow { opacity: 1; }
+        .img-slide-arrow:hover { background: rgba(0, 0, 0, 0.6); }
+        .img-slide-arrow.prev { left: 8px; }
+        .img-slide-arrow.next { right: 8px; }
+        [data-img-key] img { cursor: zoom-in; }
+
+        /* Image lightbox (tap an image to open / zoom) */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 200;
+        }
+        #lightbox.hidden { display: none; }
+        .lb-stage {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+        }
+        .lb-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+            touch-action: none;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+        .lb-img.zoomed { cursor: grab; }
+        .lb-img.dragging { transition: none; cursor: grabbing; }
+        .lb-btn {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            font-size: 24px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s ease;
+        }
+        .lb-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .lb-close { top: 16px; right: 16px; }
+        .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+        .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+        .lb-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="font-sans text-apple-dark bg-white antialiased selection:bg-apple-dark selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 apple-glass border-b border-black/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-12 md:h-14 text-xs font-medium tracking-tight">
+                <a href="#" class="text-base md:text-lg font-bold tracking-tight text-apple-dark hover:opacity-80 transition-opacity">
+                    कला CULTURE
+                </a>
+                <div class="hidden md:flex space-x-8 text-black/80 font-normal">
+                    <a href="#story" class="hover:text-black transition-colors">Story</a>
+                    <a href="#new-arrivals" class="hover:text-black transition-colors">New Arrivals</a>
+                    <a href="#embroidery" class="hover:text-black transition-colors">Embroidery</a>
+                    <a href="#hoodies" class="hover:text-black transition-colors">Hoodies</a>
+                    <a href="#polos" class="hover:text-black transition-colors">Polos</a>
+                    <a href="#tshirts" class="hover:text-black transition-colors">T-Shirts</a>
+                    <a href="#garment-care" class="hover:text-black transition-colors">Garment Care</a>
+                </div>
+                <div class="flex items-center space-x-5">
+                    <button aria-label="Search" class="text-black/80 hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                    <button aria-label="Shopping Bag" class="text-black/80 hover:text-black transition-colors relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-2 bg-black text-white text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">0</span>
+                    </button>
+                    <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode" class="text-black/80 hover:text-black transition-colors">
+                        <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-16 bg-apple-gray overflow-hidden">
+        <div class="max-w-4xl mx-auto z-10 fade-up">
+            <span class="inline-block text-xs font-semibold tracking-widest text-black/60 uppercase mb-3">Introducing</span>
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tightest mb-4 text-apple-dark">
+                कला CULTURE.
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-3xl font-medium text-black/70 tracking-tight max-w-2xl mx-auto mb-8">
+                The fabric of modern tradition. Sculpted with minimalist precision.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#new-arrivals" class="w-full sm:w-auto bg-apple-dark text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-black transition-all transform hover:scale-[1.02]">
+                    Explore Collection
+                </a>
+                <a href="#story" class="text-apple-blue hover:text-apple-bluehover text-base font-medium flex items-center transition-colors group px-4 py-2">
+                    Read the Story <span class="ml-1 transition-transform group-hover:translate-x-1">›</span>
+                </a>
+            </div>
+        </div>
+        <div class="mt-12 w-full max-w-5xl h-[300px] sm:h-[450px] bg-gradient-to-b from-white/60 to-transparent rounded-t-[2.5rem] border-t border-l border-r border-black/5 p-6 shadow-2xl flex items-end justify-center overflow-hidden fade-up">
+            <div class="text-center pb-8">
+                <p class="text-xs uppercase tracking-widest text-black/40 font-semibold mb-2">Architectural Apparel</p>
+                <p class="text-2xl sm:text-4xl font-bold text-black/80 tracking-tight">Pure Form. Uncompromised Heritage.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="story" class="py-28 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
+        <div class="max-w-4xl mx-auto text-center fade-up">
+            <span class="text-xs font-semibold tracking-widest text-orange-600 uppercase mb-2 block">Our Heritage & Vision</span>
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tightest mb-8 text-apple-dark">
+                Where Centuries of Artistry Meet the Future of Minimalism.
+            </h2>
+            <div class="space-y-6 text-lg sm:text-xl text-black/70 font-normal leading-relaxed text-left sm:text-center">
+                <p>
+                    <strong class="text-apple-dark font-semibold">"कला" (Kala)</strong> is the Sanskrit word for Art. But to us, art is not merely something you observe in a gallery—it is something you inhabit. It is the weight of the thread, the tension of the weave, and the silent confidence of a perfectly cut silhouette.
+                </p>
+                <p>
+                    <strong>कला CULTURE</strong> was born out of a relentless ambition: to rescue traditional craftsmanship from the pages of history and re-engineer it for the modern world. We refuse to compromise between the rich, soul-filled artistry of hand-crafted heritage and the clean, uncompromising geometry of contemporary streetwear.
+                </p>
+                <p>
+                    Every garment we build is a canvas of patience. We spent months obsessing over gram-per-square-meter weight, hand-embroidery tension, and ergonomic drape. When you wear कला CULTURE, you aren't just wearing clothes—you are carrying forward thousands of years of human creativity, sculpted into a timeless modern uniform.
+                </p>
+            </div>
+            <div class="mt-12 pt-8 border-t border-apple-border flex flex-wrap justify-center gap-8 text-sm font-medium text-black/60">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>100% Organic Heavyweight Cotton</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>Hand-Drawn Artisan Embroidery</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-black"></span>
+                    <span>Zero Plastic Packaging</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-arrivals" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">New Arrivals.</h2>
+                <p class="text-lg text-black/60 font-medium">The latest iterations in our signature silhouettes.</p>
+            </div>
+
+            <div id="grid-new-arrivals" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"></div>
+        </div>
+    </section>
+
+    <section id="embroidery" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-up">
+                <div>
+                    <span class="text-xs font-semibold tracking-widest text-orange-600 uppercase mb-2 block">Artisanal Precision</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold tracking-tight">The Embroidery Collection.</h2>
+                </div>
+                <p class="text-base text-black/60 max-w-md mt-4 md:mt-0 font-medium">
+                    Over 50,000 stitches per piece, crafted by master artisans using high-tensile silk threads.
+                </p>
+            </div>
+
+            <div id="grid-embroidery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"></div>
+        </div>
+    </section>
+
+    <section id="hoodies" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">Hoodies.</h2>
+                <p class="text-lg text-black/60 font-medium">Heavyweight warmth. Architectural structure.</p>
+            </div>
+
+            <div id="grid-hoodies" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="polos" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-apple-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">Polos.</h2>
+                <p class="text-lg text-black/60 font-medium">Refined sophistication meets clean modern cuts.</p>
+            </div>
+
+            <div id="grid-polos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="tshirts" class="py-24 px-4 sm:px-6 lg:px-8 bg-apple-gray">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">T-Shirts.</h2>
+                <p class="text-lg text-black/60 font-medium">Daily essentials elevated through master tailoring.</p>
+            </div>
+
+            <div id="grid-tshirts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="garment-care" class="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold tracking-widest text-blue-600 uppercase mb-2 block">Longevity Engineering</span>
+                <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-apple-dark">
+                    🧺 Garment Care Protocol
+                </h2>
+                <p class="text-lg text-black/60 font-medium">
+                    Best washing method for embroidered clothes to ensure lifetime durability.
+                </p>
+            </div>
+
+            <div class="bg-apple-cardGray rounded-[2.5rem] p-8 sm:p-12 border border-apple-border shadow-sm fade-up space-y-8">
+                <ol class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium text-black/80">
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">1</span>
+                        <span>Turn the garment inside out before washing.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">2</span>
+                        <span>Use cold water (20–30°C).</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">3</span>
+                        <span>Use a mild liquid detergent—avoid bleach and harsh stain removers.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">4</span>
+                        <span>Choose a gentle/delicate machine cycle with low spin.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">5</span>
+                        <span>Wash with similar colours and avoid rough items like towels or denim.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">6</span>
+                        <span>Don't scrub directly over the embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">7</span>
+                        <span>Don't wring or twist the garment, as this can distort the embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">8</span>
+                        <span>If washing by hand, gently soak and press rather than rubbing.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">9</span>
+                        <span>Air-dry naturally, preferably in shade. Avoid high heat.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">10</span>
+                        <span>Don't iron directly over the embroidery. Turn the garment inside out and use low/medium heat, or place a thin cloth between the iron and embroidery.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">11</span>
+                        <span>Avoid tumble drying unless the care label specifically permits it.</span>
+                    </li>
+                    <li class="flex items-start space-x-3 bg-white p-4 rounded-2xl border border-apple-border">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">12</span>
+                        <span>For particularly delicate or raised embroidery, hand washing is safest.</span>
+                    </li>
+                </ol>
+
+                <div class="mt-8 p-6 bg-black text-white rounded-3xl shadow-lg">
+                    <p class="text-xs uppercase tracking-widest text-white/60 font-semibold mb-2">The Golden Rule</p>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3">Premium-care formula:</h3>
+                    <p class="text-sm sm:text-base font-medium text-white/90 leading-relaxed font-mono">
+                        Inside out <span class="text-orange-400">→</span> cold water <span class="text-orange-400">→</span> mild detergent <span class="text-orange-400">→</span> gentle wash <span class="text-orange-400">→</span> low spin <span class="text-orange-400">→</span> shade dry <span class="text-orange-400">→</span> iron inside out.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-apple-gray py-16 px-4 sm:px-6 lg:px-8 text-xs text-black/60 font-normal border-t border-apple-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#new-arrivals" class="hover:text-black">New Arrivals</a></li>
+                        <li><a href="#embroidery" class="hover:text-black">Embroidery Collection</a></li>
+                        <li><a href="#hoodies" class="hover:text-black">Hoodies</a></li>
+                        <li><a href="#polos" class="hover:text-black">Polos</a></li>
+                        <li><a href="#tshirts" class="hover:text-black">T-Shirts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Brand</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#story" class="hover:text-black">Our Story</a></li>
+                        <li><a href="#garment-care" class="hover:text-black">Garment Care</a></li>
+                        <li><a href="#" class="hover:text-black">Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-black">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-black">Order Status</a></li>
+                        <li><a href="#" class="hover:text-black">Shipping & Delivery</a></li>
+                        <li><a href="#" class="hover:text-black">Returns & Exchanges</a></li>
+                        <li><a href="#" class="hover:text-black">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-black uppercase tracking-wider mb-3">Connect</h4>
+                    <p class="mb-3 text-black/60">Subscribe to receive early access to limited capsule releases.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter email" class="px-3 py-1.5 rounded-l-full border border-black/20 bg-white text-xs focus:outline-none w-full">
+                        <button class="bg-black text-white px-3 py-1.5 rounded-r-full text-xs font-semibold hover:bg-black/80">Join</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-black/10 my-6">
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>Copyright © 2026 कला CULTURE Inc. All rights reserved.</p>
+                <div class="flex space-x-6 text-black/50">
+                    <a href="#" class="hover:text-black">Privacy Policy</a>
+                    <a href="#" class="hover:text-black">Terms of Sale</a>
+                    <a href="#" class="hover:text-black">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="orderModal" class="hidden">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeOrder()" aria-label="Close" class="absolute top-4 right-4 text-black/40 hover:text-black text-xl leading-none">&times;</button>
+            <h3 class="text-xl font-bold mb-1 text-apple-dark">Place Your Order</h3>
+            <p id="modalProductDisplay" class="text-sm text-black/60 mb-6 font-medium">—</p>
+
+            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
+                <input type="hidden" id="orderProductName">
+                <input type="hidden" id="orderProductPrice">
+
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Full Name</label>
+                    <input type="text" id="custName" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Phone Number</label>
+                    <input type="tel" id="custPhone" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Email Address</label>
+                    <input type="email" id="custEmail" required class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-black/60 mb-1">Delivery Address</label>
+                    <textarea id="custAddress" required rows="3" class="w-full px-4 py-2.5 rounded-xl border border-apple-border bg-apple-gray text-sm focus:outline-none focus:ring-2 focus:ring-black/20"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-apple-dark text-white py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors mt-2">
+                    Confirm Order
+                </button>
+                <p class="text-[11px] text-black/40 text-center mt-2">This opens your email app to send the order to us.</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           PRODUCT DATA
+           Every card in New Arrivals / Embroidery / Hoodies / Polos /
+           T-Shirts is generated from this data instead of being
+           hand-duplicated as HTML. To change a product's name, price,
+           subtitle or image, edit it here — nothing else needs touching.
+
+           imgKey: the filename (WITHOUT extension) to look for inside
+           the local "imgs/" folder, e.g. imgKey "C0" resolves against
+           imgs/C0.png, imgs/C0.jpg, etc. (see IMAGE SYSTEM below).
+           ========================================================= */
+        const PRODUCT_SECTIONS = [
+            {
+                // 'random' = pulled live from every other section below, not a fixed list.
+                // See pickRandomNewArrivals() / NEW_ARRIVALS_COUNT near renderAllProductGrids().
+                gridId: 'grid-new-arrivals',
+                cardSize: 'compact',
+                cardBg: 'white',
+                products: 'random'
+            },
+            {
+                gridId: 'grid-embroidery',
+                cardSize: 'compact',
+                cardBg: 'cardGray',
+                products: [
+                    { name: 'Mandala Back-Embroidered Tee', subtitle: 'Gold Silk Threadwork', price: 2599, imgKey: 'C4' },
+                    { name: 'Kala Sigil Heavy Hoodie', subtitle: 'Raised Micro Stitching', price: 2599, imgKey: 'C5' },
+                    { name: 'Artisan Collar Polo', subtitle: 'Minimalist Neck Details', price: 2599, imgKey: 'C6' },
+                    { name: 'Botanical Heritage Tee', subtitle: 'Multi-color Hand Stitch', price: 2599, imgKey: 'C7' },
+                    // original file: images/kala.png1.JPG.JPG — place as imgs/kala-2.png (or .jpg/.jpeg/.webp)
+                    { name: 'Crest Oversized Sweatshirt', subtitle: 'Chest Patch Embroidery', price: 2599, imgKey: 'kala-2' },
+                ]
+            },
+            {
+                gridId: 'grid-hoodies',
+                cardSize: 'large',
+                cardBg: 'white',
+                products: [
+                    { name: 'Flight of Value', subtitle: 'A white hoodie back display highlighting a dynamic descending swallow layered over sweeping red script that reads "Valuable" with fine editorial text below', price: 1699, imgKey: 'a' },
+                    { name: 'Rearing Will', subtitle: 'white hoodie back design showcasing a galloping brown stallion framed by fluid cursive script declaring "Confidence is the willingness to try despite uncertainty".', price: 1699, imgKey: 'b' },
+                    { name: 'Savage Romance', subtitle: 'A black hoodie back print featuring an expressive illustrated tiger clutching a bouquet of red tulips, flanked by vivid scarlet script and studio tags.', price: 1699, imgKey: 'c' },
+                    { name: 'Latverian Shift', subtitle: 'An olive-green hoodie back graphic displaying a split portrait of Robert Downey Jr. and Doctor Doom, boxed by bold streetwear block letters and comic-style stamp badges.', price: 1699, imgKey: 'd' },
+                    { name: 'Desi Web-Slinger', subtitle: 'A black hoodie back piece starring Pavitr Prabhakar (Spider-Man India) mid-action over an ornate blue floral mandala and Hindi-English culture typography.', price: 1699, imgKey: 'e' },
+                ]
+            },
+            {
+                gridId: 'grid-polos',
+                cardSize: 'large',
+                cardBg: 'cardGray',
+                products: [
+                    { name: 'Nonchalant Frequency', subtitle: 'black polo tee featuring chest brand typography and a vintage music collage on the back centered around the blue Hindi-English hybrid word "nonचलांट", surrounded by sketches of headphones, a mic, a guitar, and a gramophone.', price: 999, imgKey: 'f' },
+                    { name: 'Overgrown Relic', subtitle: 'A cream polo shirt showcasing a bold back print titled "PARKED FOREVER", featuring a pixel-style red vintage pickup reclaimed by lush greenery above a reflective editorial quote.', price: 999, imgKey: 'h' },
+                    { name: 'Controlled Chaoso', subtitle: 'A black polo tee displaying the phrase "EVERYTHING IS FINE" in bold distressed lettering above an illustration of a burning vintage car trailing dark smoke, underscored by script commentary.', price: 999, imgKey: 'i' },
+                    { name: 'Jaipur Drift', subtitle: 'A white polo shirt marked with a horizontal chest panel and a large vertical back portrait depicting the iconic red sandstone Hawa Mahal beneath a flock of birds in an open sky.', price: 999, imgKey: 'k' },
+                ]
+            },
+            {
+                gridId: 'grid-tshirts',
+                cardSize: 'large',
+                cardBg: 'white',
+                products: [
+                    { name: 'Editorial Bloom', subtitle: 'A black crewneck t-shirt pairing minimal chest branding with a back magazine-cover graphic reading "REBLOOM", showcasing an arrangement of vibrant sunflowers over an illustrated figure.', price: 799, imgKey: 'g' },
+                    { name: 'Solar Flutter', subtitle: 'A crisp white crewneck t-shirt centered on a nature graphic across the back featuring blooming yellow sunflowers, fluttering orange butterflies, and stylized gothic-style typography.', price: 799, imgKey: 'j' },
+                    { name: 'Tapestry Predator', subtitle: 'A black crewneck tee designed with front brand lettering and a back piece framing a roaring Bengal tiger within an ornate, vintage Oriental rug border', price: 799, imgKey: 'l' },
+                ]
+            },
+        ];
+
+        const CARD_BG_CLASSES = {
+            white: { bg: 'bg-white', extra: 'shadow-sm' },
+            cardGray: { bg: 'bg-apple-cardGray', extra: '' },
+        };
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function escapeJsString(str) {
+            return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+
+        function productCardHTML(product, cardSize, cardBg) {
+            const { bg, extra } = CARD_BG_CLASSES[cardBg];
+            const safeName = escapeHtml(product.name);
+            const onclickArgs = `'${escapeJsString(product.name)}', ${product.price}`;
+            const badgeHTML = product.badge
+                ? `<span class="absolute top-3 left-3 bg-black text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">${escapeHtml(product.badge)}</span>`
+                : '';
+
+            if (cardSize === 'compact') {
+                return `
+                <div class="fade-up ${bg} rounded-3xl p-5 ${extra} border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-square bg-apple-gray rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center" data-img-key="${escapeHtml(product.imgKey)}" data-img-alt="${safeName}">
+                        ${badgeHTML}
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-apple-dark">${safeName}</h3>
+                        <p class="text-xs text-black/50 mb-3">${escapeHtml(product.subtitle)}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold">₹${product.price}</span>
+                            <button onclick="openOrder(${onclickArgs})" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-medium px-3 py-1.5 rounded-full transition-colors">Add</button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            // cardSize === 'large'
+            return `
+                <div class="fade-up ${bg} rounded-3xl p-6 ${extra} border border-apple-border flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-full aspect-[4/3] bg-apple-gray rounded-2xl mb-5 overflow-hidden relative flex items-center justify-center" data-img-key="${escapeHtml(product.imgKey)}" data-img-alt="${safeName}">
+                        ${badgeHTML}
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-apple-dark">${safeName}</h3>
+                        <p class="text-sm text-black/50 mb-4">${escapeHtml(product.subtitle)}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-base font-bold">₹${product.price}</span>
+                            <button onclick="openOrder(${onclickArgs})" class="bg-apple-gray hover:bg-apple-dark hover:text-white text-apple-dark text-xs font-semibold px-4 py-2 rounded-full transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // How many cards the New Arrivals section shows (randomly picked — see below).
+        const NEW_ARRIVALS_COUNT = 10;
+
+        // Picks `count` random, non-repeating products from every section EXCEPT
+        // New Arrivals itself, and tags the first pick with a "New" badge.
+        function pickRandomNewArrivals(count) {
+            const pool = [];
+            PRODUCT_SECTIONS.forEach(section => {
+                if (section.products === 'random') return; // skip New Arrivals itself
+                pool.push(...section.products);
+            });
+
+            // Fisher-Yates shuffle
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            return pool.slice(0, count).map((p, i) => {
+                const { badge, ...rest } = p; // drop any badge the product already had
+                return i === 0 ? { ...rest, badge: 'New' } : rest;
+            });
+        }
+
+        function renderAllProductGrids() {
+            PRODUCT_SECTIONS.forEach(section => {
+                const grid = document.getElementById(section.gridId);
+                if (!grid) return;
+                const products = section.products === 'random'
+                    ? pickRandomNewArrivals(NEW_ARRIVALS_COUNT)
+                    : section.products;
+                grid.innerHTML = products
+                    .map(p => productCardHTML(p, section.cardSize, section.cardBg))
+                    .join('');
+            });
+        }
+
+        /* =========================================================
+           LOCAL IMAGE SYSTEM
+
+           Images are served from an "imgs/" folder that sits next to
+           this HTML file (i.e. ./imgs/). For each product's imgKey:
+
+             1. It first looks for a plain file: imgs/<imgKey>.<ext>
+                (single-image product, e.g. imgs/b.png)
+             2. Then it looks for up to 4 numbered slides:
+                imgs/<imgKey>.1.<ext>, imgs/<imgKey>.2.<ext>,
+                imgs/<imgKey>.3.<ext>, imgs/<imgKey>.4.<ext>
+                (multi-slide product, e.g. imgs/a.1.png, imgs/a.2.png)
+
+           A product normally has one or the other, not both — but if
+           both happen to exist, the plain file is shown as the first
+           slide and the numbered files follow it. If any slides are
+           found, the card becomes a small slideshow: dots (and hover
+           arrows) let the visitor step through them. If nothing is
+           found at all, the card simply keeps its soft gray
+           placeholder background — nothing breaks.
+
+           Supported extensions are tried in this order per candidate
+           filename: png, jpg, jpeg, webp. Add more to IMAGE_EXTENSIONS
+           below if needed.
+           ========================================================= */
+        const IMAGE_FOLDER = 'imgs/';
+        const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp'];
+        const MAX_NUMBERED_SLIDES = 4;
+
+        function tryLoadImage(pathWithoutExt) {
+            return new Promise((resolve) => {
+                let remaining = IMAGE_EXTENSIONS.length;
+                let done = false;
+                IMAGE_EXTENSIONS.forEach(ext => {
+                    const img = new Image();
+                    img.onload = () => {
+                        if (!done) { done = true; resolve(`${pathWithoutExt}.${ext}`); }
+                    };
+                    img.onerror = () => {
+                        remaining--;
+                        if (remaining === 0 && !done) resolve(null);
+                    };
+                    img.src = `${pathWithoutExt}.${ext}`;
+                });
+            });
+        }
+
+        async function resolveProductSlides(imgKey) {
+            const slides = [];
+
+            const plain = await tryLoadImage(`${IMAGE_FOLDER}${imgKey}`);
+            if (plain) slides.push(plain);
+
+            for (let n = 1; n <= MAX_NUMBERED_SLIDES; n++) {
+                const slide = await tryLoadImage(`${IMAGE_FOLDER}${imgKey}.${n}`);
+                if (!slide) break;
+                slides.push(slide);
+            }
+
+            return slides;
+        }
+
+        function buildSlideshowUI(container, img, slides) {
+            let current = 0;
+
+            const dots = document.createElement('div');
+            dots.className = 'img-slide-dots';
+
+            function goTo(index) {
+                current = (index + slides.length) % slides.length;
+                img.src = slides[current];
+                img.dataset.index = current;
+                dots.querySelectorAll('.img-slide-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === current);
+                });
+            }
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'img-slide-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Show image ${i + 1} of ${slides.length}`);
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goTo(i);
+                });
+                dots.appendChild(dot);
+            });
+
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.className = 'img-slide-arrow prev';
+            prevBtn.setAttribute('aria-label', 'Previous image');
+            prevBtn.innerHTML = '&#8249;';
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
+
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.className = 'img-slide-arrow next';
+            nextBtn.setAttribute('aria-label', 'Next image');
+            nextBtn.innerHTML = '&#8250;';
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
+
+            container.appendChild(prevBtn);
+            container.appendChild(nextBtn);
+            container.appendChild(dots);
+        }
+
+        async function initProductImage(container) {
+            const imgKey = container.dataset.imgKey;
+            const alt = container.dataset.imgAlt || '';
+            if (!imgKey) return;
+
+            const slides = await resolveProductSlides(imgKey);
+            if (slides.length === 0) return; // keep placeholder background, nothing to show
+
+            const img = document.createElement('img');
+            img.src = slides[0];
+            img.alt = alt;
+            img.loading = 'lazy';
+            img.className = 'w-full h-full object-cover';
+            img.dataset.index = 0;
+            img.addEventListener('click', () => {
+                openLightbox(slides, parseInt(img.dataset.index, 10) || 0, alt);
+            });
+            container.insertBefore(img, container.firstChild);
+
+            if (slides.length > 1) {
+                buildSlideshowUI(container, img, slides);
+            }
+        }
+
+        function initAllProductImages() {
+            const containers = Array.from(document.querySelectorAll('[data-img-key]'));
+            return Promise.all(containers.map(initProductImage));
+        }
+
+        /* =========================================================
+           IMAGE LIGHTBOX
+           Tap/click a product image to open it full screen.
+           - Tap/click the image (or double-tap) to zoom in/out
+           - Mouse wheel or pinch to zoom, drag to pan when zoomed
+           - Swipe, arrow buttons or arrow keys to change slides
+           - Close with the X, Esc, or by tapping the dark background
+           ========================================================= */
+        const MAX_ZOOM = 5;
+        const TAP_ZOOM = 2.5;
+
+        const lightbox = (() => {
+            let slides = [], index = 0;
+            let scale = 1, tx = 0, ty = 0;
+            const pointers = new Map();
+            let gesture = null;   // { moved, startX, startY, startTx, startTy, pinchDist, pinchScale }
+
+            const root = document.createElement('div');
+            root.id = 'lightbox';
+            root.className = 'hidden';
+            root.setAttribute('role', 'dialog');
+            root.setAttribute('aria-modal', 'true');
+            root.innerHTML = `
+                <div class="lb-stage">
+                    <img class="lb-img" alt="" draggable="false">
+                </div>
+                <button type="button" class="lb-btn lb-close" aria-label="Close">&times;</button>
+                <button type="button" class="lb-btn lb-prev" aria-label="Previous image">&#8249;</button>
+                <button type="button" class="lb-btn lb-next" aria-label="Next image">&#8250;</button>
+                <div class="lb-counter"></div>`;
+            document.body.appendChild(root);
+
+            const stage = root.querySelector('.lb-stage');
+            const img = root.querySelector('.lb-img');
+            const prevBtn = root.querySelector('.lb-prev');
+            const nextBtn = root.querySelector('.lb-next');
+            const counter = root.querySelector('.lb-counter');
+
+            function clampPan() {
+                const maxX = Math.max(0, (img.offsetWidth * scale - stage.clientWidth) / 2);
+                const maxY = Math.max(0, (img.offsetHeight * scale - stage.clientHeight) / 2);
+                tx = Math.min(maxX, Math.max(-maxX, tx));
+                ty = Math.min(maxY, Math.max(-maxY, ty));
+            }
+
+            function apply() {
+                if (scale <= 1) { scale = 1; tx = 0; ty = 0; }
+                clampPan();
+                img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+                img.classList.toggle('zoomed', scale > 1);
+            }
+
+            function resetZoom() { scale = 1; tx = 0; ty = 0; apply(); }
+
+            function show(i) {
+                index = (i + slides.length) % slides.length;
+                img.src = slides[index];
+                resetZoom();
+                const multi = slides.length > 1;
+                prevBtn.style.display = nextBtn.style.display = multi ? 'flex' : 'none';
+                counter.textContent = multi ? `${index + 1} / ${slides.length}` : '';
+            }
+
+            function zoomAt(clientX, clientY, newScale) {
+                const rect = stage.getBoundingClientRect();
+                const dx = clientX - (rect.left + rect.width / 2);
+                const dy = clientY - (rect.top + rect.height / 2);
+                const ratio = newScale / scale;
+                tx = dx * (1 - ratio) + tx * ratio;
+                ty = dy * (1 - ratio) + ty * ratio;
+                scale = newScale;
+                apply();
+            }
+
+            function open(list, startIndex, alt) {
+                slides = list;
+                img.alt = alt || '';
+                root.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                show(startIndex);
+            }
+
+            function close() {
+                root.classList.add('hidden');
+                document.body.style.overflow = '';
+                pointers.clear();
+                gesture = null;
+            }
+
+            const dist = () => {
+                const [a, b] = [...pointers.values()];
+                return Math.hypot(a.x - b.x, a.y - b.y);
+            };
+
+            img.addEventListener('pointerdown', (e) => {
+                img.setPointerCapture(e.pointerId);
+                pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                if (pointers.size === 1) {
+                    gesture = { moved: false, startX: e.clientX, startY: e.clientY, startTx: tx, startTy: ty };
+                } else if (pointers.size === 2) {
+                    gesture = { moved: true, pinchDist: dist(), pinchScale: scale };
+                }
+                img.classList.add('dragging');
+            });
+
+            img.addEventListener('pointermove', (e) => {
+                if (!pointers.has(e.pointerId) || !gesture) return;
+                pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (pointers.size === 2) {
+                    scale = Math.min(MAX_ZOOM, Math.max(1, gesture.pinchScale * dist() / gesture.pinchDist));
+                    apply();
+                    return;
+                }
+                const dx = e.clientX - gesture.startX;
+                const dy = e.clientY - gesture.startY;
+                if (Math.abs(dx) > 6 || Math.abs(dy) > 6) gesture.moved = true;
+                if (scale > 1) {
+                    tx = gesture.startTx + dx;
+                    ty = gesture.startTy + dy;
+                    apply();
+                }
+            });
+
+            function endPointer(e) {
+                if (!pointers.has(e.pointerId)) return;
+                const wasSingle = pointers.size === 1;
+                pointers.delete(e.pointerId);
+                img.classList.remove('dragging');
+                if (!wasSingle || !gesture) { gesture = null; return; }
+
+                const g = gesture;
+                gesture = null;
+                const dx = e.clientX - g.startX;
+                if (!g.moved) {
+                    // tap: toggle zoom
+                    if (scale > 1) resetZoom(); else zoomAt(e.clientX, e.clientY, TAP_ZOOM);
+                } else if (scale === 1 && slides.length > 1 && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(e.clientY - g.startY)) {
+                    show(index + (dx < 0 ? 1 : -1));
+                }
+            }
+            img.addEventListener('pointerup', endPointer);
+            img.addEventListener('pointercancel', endPointer);
+
+            stage.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const next = Math.min(MAX_ZOOM, Math.max(1, scale * (e.deltaY < 0 ? 1.15 : 1 / 1.15)));
+                zoomAt(e.clientX, e.clientY, next);
+            }, { passive: false });
+
+            // tapping the dark area (not the image) closes
+            stage.addEventListener('click', (e) => { if (e.target === stage) close(); });
+            root.querySelector('.lb-close').addEventListener('click', close);
+            prevBtn.addEventListener('click', () => show(index - 1));
+            nextBtn.addEventListener('click', () => show(index + 1));
+
+            document.addEventListener('keydown', (e) => {
+                if (root.classList.contains('hidden')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowLeft' && slides.length > 1) show(index - 1);
+                else if (e.key === 'ArrowRight' && slides.length > 1) show(index + 1);
+            });
+
+            window.addEventListener('resize', apply);
+
+            return { open };
+        })();
+
+        function openLightbox(slides, startIndex, alt) {
+            lightbox.open(slides, startIndex, alt);
+        }
+
+        /* =========================================================
+           PAGE INIT
+           ========================================================= */
+        document.addEventListener("DOMContentLoaded", () => {
+            renderAllProductGrids();
+
+            const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+            const fadeElements = document.querySelectorAll(".fade-up");
+            fadeElements.forEach(el => observer.observe(el));
+
+            initAllProductImages();
+        });
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+        }
+
+        // Follow the device's theme live, unless the visitor has picked one manually
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            try { if (localStorage.getItem('theme')) return; } catch (err) {}
+            document.documentElement.classList.toggle('dark', e.matches);
+        });
+
+        function openOrder(productName, price) {
+            document.getElementById('orderProductName').value = productName;
+            document.getElementById('orderProductPrice').value = price;
+            document.getElementById('modalProductDisplay').textContent = productName + ' — ₹' + price;
+            document.getElementById('orderModal').classList.remove('hidden');
+        }
+
+        function closeOrder() {
+            document.getElementById('orderModal').classList.add('hidden');
+            document.getElementById('orderForm').reset();
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const product = document.getElementById('orderProductName').value;
+            const price = document.getElementById('orderProductPrice').value;
+
+            if (!name || !phone || !email || !address) {
+                alert('Please fill in all fields to place your order.');
+                return;
+            }
+
+            const subject = encodeURIComponent('New Order — ' + product);
+            const body = encodeURIComponent(
+                'NEW ORDER RECEIVED\n' +
+                '------------------------\n' +
+                'Product: ' + product + '\n' +
+                'Price: ₹' + price + '\n\n' +
+                'CUSTOMER DETAILS\n' +
+                '------------------------\n' +
+                'Name: ' + name + '\n' +
+                'Phone: ' + phone + '\n' +
+                'Email: ' + email + '\n' +
+                'Address: ' + address
+            );
+
+            window.location.href = 'mailto:pramilasahu324@gmail.com?subject=' + subject + '&body=' + body;
+            closeOrder();
+        }
+    </script>
+</body>
+</html>
